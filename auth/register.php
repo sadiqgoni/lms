@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
     $confirm_password = $_POST['confirm_password'] ?? '';
-    $role = $_POST['role'] ?? 'student'; // Default role is student
+    $role = $_POST['role'] ?? 'student';
 
     if (empty($name) || empty($email) || empty($password) || empty($confirm_password)) {
         $error = 'Please fill in all fields';
@@ -62,39 +62,53 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - LMS System</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/auth.css">
 </head>
 <body>
     <div class="auth-container">
-        <h2>Register for LMS</h2>
+        <div class="auth-logo">
+            <h1>LMS System</h1>
+            <p>Create your account to get started.</p>
+        </div>
+
         <?php if ($error): ?>
             <div class="error-message"><?php echo $error; ?></div>
         <?php endif; ?>
+
         <form method="POST" action="">
             <div class="form-group">
-                <label for="name">Full Name:</label>
-                <input type="text" id="name" name="name" required>
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required 
+                       value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>">
             </div>
+
             <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required
+                       value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
             </div>
+
             <div class="form-group">
-                <label for="password">Password:</label>
+                <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
+
             <div class="form-group">
-                <label for="confirm_password">Confirm Password:</label>
+                <label for="confirm_password">Confirm Password</label>
                 <input type="password" id="confirm_password" name="confirm_password" required>
             </div>
+
             <div class="form-group">
-                <label for="role">Role:</label>
-                <select id="role" name="role">
-                    <option value="student">Student</option>
-                    <option value="teacher">Teacher</option>
+                <label for="role">I want to register as</label>
+                <select id="role" name="role" required>
+                    <option value="student" <?php echo (isset($_POST['role']) && $_POST['role'] == 'student') ? 'selected' : ''; ?>>Student</option>
+                    <option value="teacher" <?php echo (isset($_POST['role']) && $_POST['role'] == 'teacher') ? 'selected' : ''; ?>>Teacher</option>
                 </select>
             </div>
-            <button type="submit" class="cta-button">Register</button>
+
+            <button type="submit">Create Account</button>
         </form>
+
         <p>Already have an account? <a href="login.php">Login here</a></p>
     </div>
 </body>

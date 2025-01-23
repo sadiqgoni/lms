@@ -53,24 +53,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - LMS System</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/auth.css">
 </head>
 <body>
     <div class="auth-container">
-        <h2>Login to LMS</h2>
+        <div class="auth-logo">
+            <h1>LMS System</h1>
+            <p>Welcome back! Please login to your account.</p>
+        </div>
+
         <?php if ($error): ?>
             <div class="error-message"><?php echo $error; ?></div>
         <?php endif; ?>
+
         <form method="POST" action="">
             <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required 
+                       value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
             </div>
+
             <div class="form-group">
-                <label for="password">Password:</label>
+                <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
-            <button type="submit" class="cta-button">Login</button>
+
+            <button type="submit">Login</button>
         </form>
+
         <p>Don't have an account? <a href="register.php">Register here</a></p>
     </div>
 </body>
