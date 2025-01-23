@@ -16,7 +16,7 @@ try {
     $stmt->execute([$_SESSION['user_id'], $courseId]);
     
     if ($stmt->rowCount() > 0) {
-        header('Location: view-course.php?id=' . $courseId);
+        header('Location: my-courses.php');
         exit();
     }
 
@@ -35,21 +35,19 @@ try {
         exit();
     }
 
-    // Process enrollment
+    // Process enrollment request
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("
             INSERT INTO enrollments (user_id, course_id, enrolled_at, status)
-            VALUES (?, ?, NOW(), 'in_progress')
+            VALUES (?, ?, NOW(), 'pending')
         ");
         $stmt->execute([$_SESSION['user_id'], $courseId]);
 
-        // Redirect to the course view page
-        header('Location: view-course.php?id=' . $courseId);
-        exit();
+        $success = 'Your enrollment request has been sent to the teacher for approval.';
     }
 
 } catch(PDOException $e) {
-    $error = 'Error processing enrollment. Please try again.';
+    $error = 'Error processing enrollment request. Please try again.';
 }
 ?>
 <!DOCTYPE html>
@@ -78,9 +76,20 @@ try {
         <div class="enrollment-container">
             <?php if ($error): ?>
                 <div class="error-message"><?php echo $error; ?></div>
+            <?php endif; ?>
+            
+            <?php if ($success): ?>
+                <div class="success-message">
+                    <?php echo $success; ?>
+                    <p>You will be notified when the teacher approves your enrollment.</p>
+                    <div class="button-group">
+                        <a href="my-courses.php" class="button">View My Courses</a>
+                        <a href="available-courses.php" class="button button-secondary">Browse More Courses</a>
+                    </div>
+                </div>
             <?php else: ?>
                 <div class="enrollment-confirmation">
-                    <h1>Enroll in Course</h1>
+                    <h1>Request Enrollment</h1>
                     <div class="course-summary">
                         <h2><?php echo htmlspecialchars($course['title']); ?></h2>
                         <p class="course-teacher">Instructor: <?php echo htmlspecialchars($course['teacher_name']); ?></p>
@@ -101,10 +110,11 @@ try {
                         <div class="enrollment-actions">
                             <form method="POST" action="">
                                 <p class="confirmation-text">
-                                    Are you sure you want to enroll in this course? By enrolling, you'll get immediate access to all course materials.
+                                    By requesting enrollment, your request will be sent to the course instructor for approval.
+                                    You will be notified once your enrollment is approved.
                                 </p>
                                 <div class="button-group">
-                                    <button type="submit" class="button">Confirm Enrollment</button>
+                                    <button type="submit" class="button">Request Enrollment</button>
                                     <a href="course-details.php?id=<?php echo $courseId; ?>" class="button button-secondary">Cancel</a>
                                 </div>
                             </form>
