@@ -11,7 +11,20 @@ try {
     $stmt = $pdo->prepare("SELECT * FROM courses WHERE teacher_id = ? ORDER BY created_at DESC");
     $stmt->execute([$_SESSION['user_id']]);
     $courses = $stmt->fetchAll();
-} catch(PDOException $e) {
+
+
+    $stmta = $pdo->prepare("
+        SELECT COUNT(*) as pending_count 
+        FROM enrollments e 
+        JOIN courses c ON e.course_id = c.id 
+        WHERE c.teacher_id = ? AND e.status = 'pending'
+    ");
+    $stmta->execute([$_SESSION['user_id']]);
+    $pendingCount = $stmta->fetch()['pending_count'];
+
+
+
+} catch (PDOException $e) {
     $error = 'Error fetching courses';
 }
 
@@ -20,6 +33,7 @@ $teacher = getUserInfo($pdo, $_SESSION['user_id']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,13 +41,25 @@ $teacher = getUserInfo($pdo, $_SESSION['user_id']);
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
 </head>
+
 <body>
     <header>
         <nav>
             <div class="logo">LMS System</div>
             <ul>
                 <li><a href="dashboard.php" class="active">Dashboard</a></li>
-                <li><a href="courses.php">My Courses</a></li>
+                <li>
+                    <a href="courses.php">
+                        My Courses
+                        <?php if ($pendingCount > 0): ?>
+                            <span class="notification-badge"><?php echo $pendingCount; ?></span>
+                        <?php endif; ?>
+                    </a>
+
+                </li>
+
+
+
                 <li><a href="create-course.php">Create Course</a></li>
                 <li><a href="../auth/logout.php">Logout</a></li>
             </ul>
@@ -57,7 +83,8 @@ $teacher = getUserInfo($pdo, $_SESSION['user_id']);
         <section class="recent-courses">
             <h2>Your Recent Courses</h2>
             <?php if (empty($courses)): ?>
-                <p class="no-courses">You haven't created any courses yet. <a href="create-course.php">Create your first course</a></p>
+                <p class="no-courses">You haven't created any courses yet. <a href="create-course.php">Create your first
+                        course</a></p>
             <?php else: ?>
                 <div class="course-grid">
                     <?php foreach ($courses as $course): ?>
@@ -65,7 +92,8 @@ $teacher = getUserInfo($pdo, $_SESSION['user_id']);
                             <h3><?php echo htmlspecialchars($course['title']); ?></h3>
                             <p><?php echo substr(htmlspecialchars($course['description']), 0, 100) . '...'; ?></p>
                             <div class="course-status">
-                                Status: <span class="status-<?php echo $course['status']; ?>"><?php echo ucfirst($course['status']); ?></span>
+                                Status: <span
+                                    class="status-<?php echo $course['status']; ?>"><?php echo ucfirst($course['status']); ?></span>
                             </div>
                             <div class="course-actions">
                                 <a href="edit-course.php?id=<?php echo $course['id']; ?>" class="button">Edit</a>
@@ -102,4 +130,5 @@ $teacher = getUserInfo($pdo, $_SESSION['user_id']);
 
     <script src="../assets/js/dashboard.js"></script>
 </body>
+
 </html>

@@ -8,6 +8,14 @@ requireRole('teacher');
 
 $error = '';
 $success = '';
+$stmta = $pdo->prepare("
+SELECT COUNT(*) as pending_count 
+FROM enrollments e 
+JOIN courses c ON e.course_id = c.id 
+WHERE c.teacher_id = ? AND e.status = 'pending'
+");
+$stmta->execute([$_SESSION['user_id']]);
+$pendingCount = $stmta->fetch()['pending_count'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = $_POST['title'] ?? '';
@@ -47,7 +55,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="logo">LMS System</div>
             <ul>
                 <li><a href="dashboard.php">Dashboard</a></li>
-                <li><a href="courses.php">My Courses</a></li>
+                <li>  <a href="courses.php">
+                        My Courses
+                        <?php if ($pendingCount > 0): ?>
+                            <span class="notification-badge"><?php echo $pendingCount; ?></span>
+                        <?php endif; ?>
+                    </a></li>
                 <li><a href="create-course.php" class="active">Create Course</a></li>
                 <li><a href="../auth/logout.php">Logout</a></li>
             </ul>

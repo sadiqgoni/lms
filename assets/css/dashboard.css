@@ -599,3 +599,311 @@
         flex-direction: column;
     }
 }
+
+/* Course View */
+.course-view {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.course-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.course-header h1 {
+    margin: 0;
+    color: #2c3e50;
+}
+
+.materials-list {
+    margin-top: 2rem;
+}
+
+.material-item {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.material-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.material-info h3 {
+    margin: 0;
+    color: #2c3e50;
+}
+
+.material-type {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    background: #f0f0f0;
+    color: #666;
+}
+
+.material-content {
+    margin: 1rem 0;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    overflow: hidden;
+    margin: 1rem 0;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.material-progress {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.completion-date {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .course-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .material-info {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+
+    .material-progress {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+
+    .completion-date {
+        display: block;
+        margin-top: 0.5rem;
+    }
+}
+
+/* Notification Badge */
+.notification-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 6px;
+    background-color: #e53e3e;
+    color: white;
+    border-radius: 9px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    position: relative;
+    top: -8px;
+    right: -4px;
+}
+
+/* Navigation with Notification */
+nav ul li a {
+    position: relative;
+    display: inline-block;
+}
+
+nav ul li a .notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+}
+
+/* Pending Requests */
+.pending-requests {
+    color: #92400e;
+    font-weight: 500;
+}
+
+.pending-requests i {
+    margin-right: 4px;
+}
+
+/* Course Actions with Notification */
+.course-actions {
+    position: relative;
+}
+
+.course-actions .button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.course-actions .notification-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
+
+/* Enrollment Pending Message */
+.enrollment-pending {
+    text-align: center;
+    padding: 1rem;
+    background-color: #fef3c7;
+    border-radius: 8px;
+    margin-top: 1rem;
+}
+
+.enrollment-pending .pending-message {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #92400e;
+}
+
+/* Student Management */
+.student-section {
+    margin-bottom: 2rem;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.student-section h2 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.student-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.student-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.student-card:hover {
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.student-info {
+    margin-bottom: 1rem;
+}
+
+.student-info h3 {
+    color: #2c3e50;
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.student-info p {
+    color: #64748b;
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+.enrollment-date {
+    font-size: 0.875rem;
+    color: #64748b;
+    margin-top: 0.5rem;
+}
+
+.student-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.student-actions .button {
+    flex: 1;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.875rem;
+}
+
+.button-danger {
+    background-color: #ef4444;
+    color: white;
+}
+
+.button-danger:hover {
+    background-color: #dc2626;
+}
+
+/* Progress Section in Student Card */
+.student-card .progress-section {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.student-card .progress-bar {
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0.5rem 0;
+}
+
+.student-card .progress {
+    height: 100%;
+    background: #3b82f6;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.student-card .progress-text {
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .student-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .student-actions {
+        flex-direction: column;
+    }
+
+    .student-actions .button {
+        width: 100%;
+    }
+}

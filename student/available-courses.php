@@ -7,6 +7,14 @@ require_once '../includes/functions.php';
 requireRole('student');
 
 try {
+    // Get pending enrollments for this student
+    $stmt = $pdo->prepare("
+        SELECT course_id FROM enrollments 
+        WHERE user_id = ? AND status = 'pending'
+    ");
+    $stmt->execute([$_SESSION['user_id']]);
+    $pendingEnrollments = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
     // Get available courses (not enrolled)
     $stmt = $pdo->prepare("
         SELECT c.*, u.name as teacher_name,
@@ -16,7 +24,8 @@ try {
         JOIN users u ON c.teacher_id = u.id
         WHERE c.status = 'published' 
         AND c.id NOT IN (
-            SELECT course_id FROM enrollments WHERE user_id = ?
+            SELECT course_id FROM enrollments 
+            WHERE user_id = ? AND status IN ('approved', 'completed')
         )
         ORDER BY c.created_at DESC
     ");
@@ -115,8 +124,15 @@ try {
                         </div>
                         
                         <div class="course-actions">
-                            <a href="course-details.php?id=<?php echo $course['id']; ?>" class="button">View Details</a>
-                            <a href="enroll.php?course_id=<?php echo $course['id']; ?>" class="button button-primary">Enroll Now</a>
+                            <?php if (in_array($course['id'], $pendingEnrollments)): ?>
+                                <div class="enrollment-pending">
+                                    <span class="status-badge status-pending">Enrollment Pending</span>
+                                    <p class="pending-message">Your enrollment request is being reviewed by the instructor.</p>
+                                </div>
+                            <?php else: ?>
+                                <a href="course-details.php?id=<?php echo $course['id']; ?>" class="button">View Details</a>
+                                <a href="enroll.php?course_id=<?php echo $course['id']; ?>" class="button button-primary">Enroll Now</a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 <?php endforeach; ?>

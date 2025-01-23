@@ -18,6 +18,16 @@ try {
     $stmt->execute([$courseId, $_SESSION['user_id']]);
     $course = $stmt->fetch();
 
+    $stmta = $pdo->prepare("
+    SELECT COUNT(*) as pending_count 
+    FROM enrollments e 
+    JOIN courses c ON e.course_id = c.id 
+    WHERE c.teacher_id = ? AND e.status = 'pending'
+");
+$stmta->execute([$_SESSION['user_id']]);
+$pendingCount = $stmta->fetch()['pending_count'];
+
+
     if (!$course) {
         header('Location: courses.php');
         exit();
@@ -57,7 +67,12 @@ try {
             <div class="logo">LMS System</div>
             <ul>
                 <li><a href="dashboard.php">Dashboard</a></li>
-                <li><a href="courses.php">My Courses</a></li>
+                <li>  <a href="courses.php">
+                        My Courses
+                        <?php if ($pendingCount > 0): ?>
+                            <span class="notification-badge"><?php echo $pendingCount; ?></span>
+                        <?php endif; ?>
+                    </a></li>
                 <li><a href="create-course.php">Create Course</a></li>
                 <li><a href="../auth/logout.php">Logout</a></li>
             </ul>
