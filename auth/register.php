@@ -60,14 +60,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - LMS System</title>
+    <title>Register - FOC LMS</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/auth.css">
 </head>
 <body>
     <div class="auth-container">
         <div class="auth-logo">
-            <h1>LMS System</h1>
+            <h1>FOC LMS</h1>
             <p>Create your account to get started.</p>
         </div>
 

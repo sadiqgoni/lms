@@ -49,7 +49,7 @@ try {
 <body>
     <header>
         <nav>
-            <div class="logo">LMS System</div>
+            <div class="logo">FOC LMS</div>
             <ul>
                 <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="my-courses.php">My Courses</a></li>
@@ -132,7 +132,7 @@ try {
     </main>
 
     <footer>
-        <p>&copy; <?php echo date('Y'); ?> LMS System. All rights reserved.</p>
+        <p>&copy; <?php echo date('Y'); ?> FOC LMS. All rights reserved.</p>
     </footer>
 
     <script src="../assets/js/dashboard.js"></script>

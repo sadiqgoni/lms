@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <header>
         <nav>
-            <div class="logo">LMS System</div>
+            <div class="logo">FOC LMS</div>
             <ul>
                 <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="courses.php">My Courses</a></li>
@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </main>
 
     <footer>
-        <p>&copy; <?php echo date('Y'); ?> LMS System. All rights reserved.</p>
+        <p>&copy; <?php echo date('Y'); ?> FOC LMS. All rights reserved.</p>
     </footer>
 
     <script>

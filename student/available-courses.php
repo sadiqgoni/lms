@@ -46,14 +46,14 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Available Courses - LMS System</title>
+    <title>Available Courses - FOC LMS</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
 </head>
 <body>
     <header>
         <nav>
-            <div class="logo">LMS System</div>
+            <div class="logo">FOC LMS</div>
             <ul>
                 <li><a href="dashboard.php">Dashboard</a></li>
                 <li><a href="my-courses.php">My Courses</a></li>
@@ -64,7 +64,7 @@ try {
     </header>
 
     <main class="dashboard-container">
-        <div class="page-header">
+        <!-- <div class="page-header">
             <h1>Available Courses</h1>
             <div class="search-filters">
                 <input type="text" id="courseSearch" placeholder="Search courses..." class="search-input">
@@ -83,7 +83,7 @@ try {
                     <option value="advanced">Advanced</option>
                 </select>
             </div>
-        </div>
+        </div> -->
 
         <?php if (isset($error)): ?>
             <div class="error-message"><?php echo $error; ?></div>
@@ -141,7 +141,7 @@ try {
     </main>
 
     <footer>
-        <p>&copy; <?php echo date('Y'); ?> LMS System. All rights reserved.</p>
+        <p>&copy; <?php echo date('Y'); ?> FOC LMS. All rights reserved.</p>
     </footer>
 
     <script>

@@ -13,13 +13,13 @@ $userRole = $isLoggedIn ? $_SESSION['role'] : null;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LMS - Learning Management System</title>
+    <title>FOC LMS - Faculty of Computing, BUK</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <header>
         <nav>
-            <div class="logo">LMS System</div>
+            <div class="logo">FOC LMS</div>
             <ul>
                 <?php if (!$isLoggedIn): ?>
                     <li><a href="auth/login.php">Login</a></li>
@@ -34,16 +34,18 @@ $userRole = $isLoggedIn ? $_SESSION['role'] : null;
 
     <main>
         <section class="hero">
-            <h1>Welcome to Our Learning Management System</h1>
-            <p>Empower your learning journey with our comprehensive platform</p>
-            <?php if (!$isLoggedIn): ?>
-                <a href="auth/register.php" class="cta-button">Get Started</a>
-            <?php endif; ?>
+            <div class="hero-content">
+                <h1>Welcome to FOC Learning Management System</h1>
+                <p>Faculty of Computing, Bayero University Kano</p>
+                <?php if (!$isLoggedIn): ?>
+                    <a href="auth/register.php" class="cta-button">Get Started</a>
+                <?php endif; ?>
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; <?php echo date('Y'); ?> LMS System. All rights reserved.</p>
+        <p>&copy; <?php echo date('Y'); ?> FOC LMS - Faculty of Computing, BUK. All rights reserved.</p>
     </footer>
 
     <script src="assets/js/main.js"></script>

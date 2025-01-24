@@ -7,91 +7,165 @@
 
 /* Welcome Section */
 .welcome-section {
-    background-color: #f8f9fa;
-    padding: 2rem;
-    border-radius: 8px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    padding: 3rem 2rem;
+    border-radius: 15px;
     margin-bottom: 2rem;
     text-align: center;
+    color: var(--text-light);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 .welcome-section h1 {
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    font-size: 2.5rem;
+}
+
+.welcome-section p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
 }
 
 /* Dashboard Stats */
 .dashboard-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
 }
 
 .stat-card {
     background: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
 }
 
 .stat-card h3 {
-    color: #666;
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .stat-number {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: bold;
-    color: #3498db;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
 }
 
 /* Course Grid */
 .course-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 1.5rem;
     margin-bottom: 2rem;
 }
 
 .course-card {
     background: white;
-    border-radius: 8px;
+    border-radius: 15px;
     padding: 1.5rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
 }
 
 .course-card h3 {
-    color: #2c3e50;
+    color: var(--text-dark);
     margin-bottom: 1rem;
+    font-size: 1.25rem;
+}
+
+.course-card p {
+    color: #666;
+    margin-bottom: 1rem;
+    line-height: 1.6;
 }
 
 .course-status {
     margin: 1rem 0;
+    font-weight: 500;
 }
 
-.status-draft { color: #f39c12; }
-.status-published { color: #27ae60; }
-.status-archived { color: #7f8c8d; }
+.status-draft { color: var(--warning-color); }
+.status-published { color: var(--success-color); }
+.status-archived { color: #64748b; }
 
 .course-actions {
     display: flex;
     gap: 1rem;
-    margin-top: 1rem;
+    margin-top: 1.5rem;
 }
 
 .button {
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
     text-decoration: none;
-    color: white;
-    background-color: #3498db;
-    transition: background-color 0.3s;
+    color: var(--text-light);
+    background-color: var(--primary-color);
+    transition: all 0.3s;
+    font-weight: 500;
+    text-align: center;
+    border: none;
+    cursor: pointer;
 }
 
 .button:hover {
-    background-color: #2980b9;
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.button-secondary {
+    background-color: #64748b;
+}
+
+.button-secondary:hover {
+    background-color: #475569;
+}
+
+.notification-badge {
+    background-color: var(--danger-color);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    margin-left: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 1rem;
+    }
+    
+    .welcome-section {
+        padding: 2rem 1rem;
+    }
+    
+    .welcome-section h1 {
+        font-size: 2rem;
+    }
+    
+    .course-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Quick Actions */

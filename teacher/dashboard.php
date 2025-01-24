@@ -37,7 +37,7 @@ $teacher = getUserInfo($pdo, $_SESSION['user_id']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Dashboard - LMS System</title>
+    <title>Teacher Dashboard - FOC LMS</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
 </head>
@@ -45,7 +45,7 @@ $teacher = getUserInfo($pdo, $_SESSION['user_id']);
 <body>
     <header>
         <nav>
-            <div class="logo">LMS System</div>
+            <div class="logo">FOC LMS</div>
             <ul>
                 <li><a href="dashboard.php" class="active">Dashboard</a></li>
                 <li>
@@ -125,7 +125,7 @@ $teacher = getUserInfo($pdo, $_SESSION['user_id']);
     </main>
 
     <footer>
-        <p>&copy; <?php echo date('Y'); ?> LMS System. All rights reserved.</p>
+        <p>&copy; <?php echo date('Y'); ?> FOC LMS. All rights reserved.</p>
     </footer>
 
     <script src="../assets/js/dashboard.js"></script>
