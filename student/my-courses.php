@@ -67,7 +67,7 @@ function calculateProgress($completed, $total) {
         <?php if (empty($enrolledCourses)): ?>
             <div class="no-courses">
                 <h2>No Enrolled Courses</h2>
-                <p>You haven't enrolled in any courses yet.</p>
+                <p>You haven't enrolled in any courses yet.</p><br>
                 <a href="available-courses.php" class="button">Browse Available Courses</a>
             </div>
         <?php else: ?>
@@ -99,10 +99,7 @@ function calculateProgress($completed, $total) {
                                     <span class="stat-label">Materials</span>
                                     <span class="stat-value"><?php echo $course['completed_materials']; ?>/<?php echo $course['material_count']; ?></span>
                                 </div>
-                                <div class="stat">
-                                    <span class="stat-label">Duration</span>
-                                    <span class="stat-value"><?php echo $course['duration']; ?> weeks</span>
-                                </div>
+                              
                             </div>
 
                             <div class="course-actions">
@@ -110,13 +107,13 @@ function calculateProgress($completed, $total) {
                             </div>
                         <?php elseif ($course['enrollment_status'] == 'pending'): ?>
                             <div class="pending-message">
-                                <p>Your enrollment request is pending approval from the instructor.</p>
+                                <p>Your enrollment request is pending approval from the lecturer.</p>
                                 <p class="enrollment-date">Requested on: <?php echo date('M d, Y', strtotime($course['enrolled_at'])); ?></p>
                             </div>
                         <?php elseif ($course['enrollment_status'] == 'rejected'): ?>
                             <div class="rejected-message">
                                 <p>Your enrollment request was not approved.</p>
-                                <p>Please contact the instructor for more information.</p>
+                                <p>Please contact the lecturer for more information.</p>
                             </div>
                         <?php endif; ?>
                     </div>

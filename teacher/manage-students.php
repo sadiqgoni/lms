@@ -100,6 +100,7 @@ try {
     <title>Manage Students - <?php echo htmlspecialchars($course['title'] ?? ''); ?></title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <header>
@@ -109,125 +110,127 @@ try {
                 <li><a href="dashboard.php">Dashboard</a></li>
                 <li>
                     <a href="courses.php">
-                        My Courses
+                        <i class="fas fa-book"></i> My Courses
                         <?php if ($pendingCount > 0): ?>
                             <span class="notification-badge"><?php echo $pendingCount; ?></span>
                         <?php endif; ?>
                     </a>
                 </li>
-                <li><a href="create-course.php">Create Course</a></li>
-                <li><a href="../auth/logout.php">Logout</a></li>
+                <li><a href="create-course.php"><i class="fas fa-plus-circle"></i> Create Course</a></li>
+                <li><a href="../auth/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
             </ul>
         </nav>
     </header>
 
     <main class="dashboard-container">
-        <div class="page-header">
-            <h1>Manage Students - <?php echo htmlspecialchars($course['title'] ?? ''); ?></h1>
-            <a href="courses.php" class="button">Back to Courses</a>
-        </div>
-
         <?php if ($error): ?>
             <div class="error-message"><?php echo $error; ?></div>
         <?php endif; ?>
 
         <?php if ($success): ?>
-            <div class="success-message"><?php echo $success; ?></div>
+            <div class="success-message">
+                <i class="fas fa-check-circle"></i>
+                <?php echo $success; ?>
+            </div>
         <?php endif; ?>
 
-        <!-- Pending Enrollment Requests -->
-        <section class="student-section">
-            <h2>Pending Enrollment Requests (<?php echo count($pendingStudents); ?>)</h2>
-            <?php if (empty($pendingStudents)): ?>
-                <p>No pending enrollment requests.</p>
-            <?php else: ?>
-                <div class="student-grid">
-                    <?php foreach ($pendingStudents as $student): ?>
-                        <div class="student-card">
-                            <div class="student-info">
-                                <h3><?php echo htmlspecialchars($student['name']); ?></h3>
-                                <p><?php echo htmlspecialchars($student['email']); ?></p>
-                                <p class="enrollment-date">
-                                    Requested: <?php echo date('M j, Y', strtotime($student['enrolled_at'])); ?>
-                                </p>
-                            </div>
-                            <div class="student-actions">
-                                <form method="POST" style="display: inline;">
-                                    <input type="hidden" name="student_id" value="<?php echo $student['id']; ?>">
-                                    <button type="submit" name="action" value="approve" class="button button-primary">
-                                        Approve
-                                    </button>
-                                    <button type="submit" name="action" value="reject" class="button button-danger">
-                                        Reject
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
-        </section>
+        <div class="page-header">
+            <div class="header-content">
+                <h1><i class="fas fa-users"></i> Manage Students</h1>
+                <p class="course-title"><?php echo htmlspecialchars($course['title']); ?></p>
+            </div>
+            <a href="courses.php" class="button button-secondary">
+                <i class="fas fa-arrow-left"></i> Back to Courses
+            </a>
+        </div>
 
-        <!-- Enrolled Students -->
-        <section class="student-section">
-            <h2>Enrolled Students (<?php echo count($enrolledStudents); ?>)</h2>
-            <?php if (empty($enrolledStudents)): ?>
-                <p>No students enrolled yet.</p>
-            <?php else: ?>
-                <div class="student-grid">
-                    <?php foreach ($enrolledStudents as $student): ?>
-                        <div class="student-card">
-                            <div class="student-info">
-                                <h3><?php echo htmlspecialchars($student['name']); ?></h3>
-                                <p><?php echo htmlspecialchars($student['email']); ?></p>
-                                <p class="enrollment-date">
-                                    Enrolled: <?php echo date('M j, Y', strtotime($student['enrolled_at'])); ?>
-                                </p>
-                                <?php if ($student['total_materials'] > 0): ?>
-                                    <div class="progress-section">
-                                        <?php 
-                                            $progress = round(($student['completed_materials'] / $student['total_materials']) * 100);
-                                        ?>
+        <div class="student-management-grid">
+            <!-- Pending Enrollment Requests -->
+            <section class="student-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-user-clock"></i> Pending Requests (<?php echo count($pendingStudents); ?>)</h2>
+                </div>
+                <?php if (empty($pendingStudents)): ?>
+                    <div class="empty-state">
+                        <i class="fas fa-check-circle"></i>
+                        <p>No pending enrollment requests</p>
+                    </div>
+                <?php else: ?>
+                    <div class="students-list">
+                        <?php foreach ($pendingStudents as $student): ?>
+                            <div class="student-card pending">
+                                <div class="student-info">
+                                    <h3><?php echo htmlspecialchars($student['name']); ?></h3>
+                                    <p><i class="fas fa-envelope"></i> <?php echo htmlspecialchars($student['email']); ?></p>
+                                    <p class="request-date">
+                                        <i class="fas fa-clock"></i> 
+                                        Requested: <?php echo date('M d, Y', strtotime($student['enrolled_at'])); ?>
+                                    </p>
+                                </div>
+                                <div class="student-actions">
+                                    <form method="POST" class="inline-form">
+                                        <input type="hidden" name="student_id" value="<?php echo $student['id']; ?>">
+                                        <button type="submit" name="action" value="approve" class="button button-success">
+                                            <i class="fas fa-check"></i> Approve
+                                        </button>
+                                        <button type="submit" name="action" value="reject" class="button button-danger">
+                                            <i class="fas fa-times"></i> Reject
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+            </section>
+
+            <!-- Enrolled Students -->
+            <section class="student-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-user-graduate"></i> Enrolled Students (<?php echo count($enrolledStudents); ?>)</h2>
+                </div>
+                <?php if (empty($enrolledStudents)): ?>
+                    <div class="empty-state">
+                        <i class="fas fa-users"></i>
+                        <p>No students enrolled yet</p>
+                    </div>
+                <?php else: ?>
+                    <div class="students-list">
+                        <?php foreach ($enrolledStudents as $student): ?>
+                            <div class="student-card enrolled">
+                                <div class="student-info">
+                                    <h3><?php echo htmlspecialchars($student['name']); ?></h3>
+                                    <p><i class="fas fa-envelope"></i> <?php echo htmlspecialchars($student['email']); ?></p>
+                                    <div class="progress-info">
                                         <div class="progress-bar">
+                                            <?php 
+                                                $progress = $student['total_materials'] > 0 
+                                                    ? ($student['completed_materials'] / $student['total_materials']) * 100 
+                                                    : 0;
+                                            ?>
                                             <div class="progress" style="width: <?php echo $progress; ?>%"></div>
                                         </div>
                                         <span class="progress-text">
-                                            <?php echo $progress; ?>% Complete
-                                            (<?php echo $student['completed_materials']; ?>/<?php echo $student['total_materials']; ?> materials)
+                                            <?php echo $student['completed_materials']; ?>/<?php echo $student['total_materials']; ?> materials completed
                                         </span>
                                     </div>
-                                <?php endif; ?>
+                                </div>
+                                <div class="student-meta">
+                                    <span class="enrollment-date">
+                                        <i class="fas fa-calendar-alt"></i>
+                                        Enrolled: <?php echo date('M d, Y', strtotime($student['enrolled_at'])); ?>
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
-        </section>
-
-        <!-- Available Students -->
-        <section class="student-section">
-            <h2>Available Students (<?php echo count($availableStudents); ?>)</h2>
-            <?php if (empty($availableStudents)): ?>
-                <p>No available students to enroll.</p>
-            <?php else: ?>
-                <div class="student-grid">
-                    <?php foreach ($availableStudents as $student): ?>
-                        <div class="student-card">
-                            <div class="student-info">
-                                <h3><?php echo htmlspecialchars($student['name']); ?></h3>
-                                <p><?php echo htmlspecialchars($student['email']); ?></p>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
-        </section>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+            </section>
+        </div>
     </main>
 
     <footer>
         <p>&copy; <?php echo date('Y'); ?> FOC LMS. All rights reserved.</p>
     </footer>
-
-    <script src="../assets/js/dashboard.js"></script>
 </body>
 </html>

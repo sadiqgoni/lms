@@ -116,9 +116,9 @@ $pendingCount = $stmta->fetch()['pending_count'];
                 </div>
 
                 <section class="course-materials">
-                    <h2>Course Materials</h2>
+                    <h2>Course Materials</h2><br>
                     <?php if (empty($materials)): ?>
-                        <p class="no-items">No materials added yet.</p>
+                        <p class="no-items">No materials added yet.</p><br>
                     <?php else: ?>
                         <div class="materials-list">
                             <?php foreach ($materials as $material): ?>
@@ -126,7 +126,7 @@ $pendingCount = $stmta->fetch()['pending_count'];
                                     <div class="material-info">
                                         <h3><?php echo htmlspecialchars($material['title']); ?></h3>
                                         <p>Type: <?php echo ucfirst($material['type']); ?></p>
-                                    </div>
+                                    </div><hr>
                                     <div class="material-actions">
                                         <a href="edit-material.php?id=<?php echo $material['id']; ?>" class="button">Edit</a>
                                         <a href="delete-material.php?id=<?php echo $material['id']; ?>" 

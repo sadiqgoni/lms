@@ -45,7 +45,7 @@ function formatDate($date) {
 // Get user info
 function getUserInfo($pdo, $userId) {
     try {
-        $stmt = $pdo->prepare("SELECT id, name, email, role FROM users WHERE id = ?");
+        $stmt = $pdo->prepare("SELECT id, name, email, role, reg_number FROM users WHERE id = ?");
         $stmt->execute([$userId]);
         return $stmt->fetch();
     } catch(PDOException $e) {

@@ -45,6 +45,7 @@ try {
     <title><?php echo htmlspecialchars($course['title']); ?> - Course Details</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <header>
@@ -66,65 +67,49 @@ try {
             <div class="course-details">
                 <div class="course-header">
                     <h1><?php echo htmlspecialchars($course['title']); ?></h1>
-                    <?php if (!$isEnrolled): ?>
-                        <a href="enroll.php?course_id=<?php echo $course['id']; ?>" class="button">Enroll Now</a>
+                    <?php if ($isEnrolled): ?>
+                        <div class="enrollment-status enrolled">
+                            <i class="fas fa-check-circle"></i> You are enrolled in this course
+                        </div>
                     <?php endif; ?>
                 </div>
 
-                <div class="course-info">
-                    <div class="info-card">
-                        <h3>Course Overview</h3>
-                        <p><?php echo nl2br(htmlspecialchars($course['description'])); ?></p>
+                <div class="course-content">
+                    <div class="course-description">
+                        <div class="description-card">
+                            <h3><i class="fas fa-info-circle"></i> About This Course</h3>
+                            <p><?php echo nl2br(htmlspecialchars($course['description'])); ?></p>
+                        </div>
                     </div>
 
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <h4>Instructor</h4>
+                    <div class="course-meta-grid">
+                        <div class="meta-card">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <h4>Lecturer</h4>
                             <p><?php echo htmlspecialchars($course['teacher_name']); ?></p>
                         </div>
-                        <div class="info-item">
-                            <h4>Duration</h4>
-                            <p><?php echo htmlspecialchars($course['duration']); ?> weeks</p>
-                        </div>
-                        <div class="info-item">
+                        <div class="meta-card">
+                            <i class="fas fa-book"></i>
                             <h4>Materials</h4>
                             <p><?php echo $course['material_count']; ?> learning resources</p>
                         </div>
-                        <div class="info-item">
+                        <div class="meta-card">
+                            <i class="fas fa-layer-group"></i>
                             <h4>Level</h4>
                             <p><?php echo ucfirst(htmlspecialchars($course['level'])); ?></p>
                         </div>
-                    </div>
-
-                    <?php if ($course['prerequisites']): ?>
-                    <div class="info-card">
-                        <h3>Prerequisites</h3>
-                        <p><?php echo nl2br(htmlspecialchars($course['prerequisites'])); ?></p>
-                    </div>
-                    <?php endif; ?>
-
-                    <div class="info-card">
-                        <h3>What You'll Learn</h3>
-                        <ul class="learning-outcomes">
-                            <?php
-                            $outcomes = explode("\n", $course['learning_outcomes']);
-                            foreach ($outcomes as $outcome):
-                                if (trim($outcome)):
-                            ?>
-                                <li><?php echo htmlspecialchars(trim($outcome)); ?></li>
-                            <?php
-                                endif;
-                            endforeach;
-                            ?>
-                        </ul>
                     </div>
                 </div>
 
                 <?php if (!$isEnrolled): ?>
                 <div class="enrollment-cta">
-                    <h2>Ready to Start Learning?</h2>
-                    <p>Enroll now to access all course materials and start your learning journey.</p>
-                    <a href="enroll.php?course_id=<?php echo $course['id']; ?>" class="button">Enroll in This Course</a>
+                    <div class="cta-content">
+                        <h2><i class="fas fa-graduation-cap"></i> Ready to Start Learning?</h2>
+                        <p>Enroll now to access all course materials and start your learning journey.</p>
+                        <a href="enroll.php?course_id=<?php echo $course['id']; ?>" class="button">
+                            <i class="fas fa-sign-in-alt"></i> Enroll in This Course
+                        </a>
+                    </div>
                 </div>
                 <?php endif; ?>
             </div>

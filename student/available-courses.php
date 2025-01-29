@@ -32,13 +32,11 @@ try {
     $stmt->execute([$_SESSION['user_id']]);
     $availableCourses = $stmt->fetchAll();
 
-    // Get course categories
-    $stmt = $pdo->prepare("SELECT DISTINCT category FROM courses WHERE status = 'published'");
-    $stmt->execute();
-    $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
 
 } catch(PDOException $e) {
-    $error = 'Error fetching courses';
+    $error = 'Error fetching courses: ' . $e->getMessage();
+
 }
 ?>
 <!DOCTYPE html>
@@ -113,8 +111,6 @@ try {
                         
                         <div class="course-meta">
                             <span><i class="fas fa-book"></i> <?php echo $course['material_count']; ?> materials</span>
-                            <span><i class="fas fa-clock"></i> <?php echo $course['duration']; ?> weeks</span>
-                            <span><i class="fas fa-users"></i> <?php echo $course['student_count']; ?> students</span>
                         </div>
 
                         <div class="course-category">

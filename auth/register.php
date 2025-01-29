@@ -11,8 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'] ?? '';
     $confirm_password = $_POST['confirm_password'] ?? '';
     $role = $_POST['role'] ?? 'student';
+    $reg_number = $_POST['reg_number'] ?? '';
 
-    if (empty($name) || empty($email) || empty($password) || empty($confirm_password)) {
+    if (empty($name) || empty($email) || empty($password) || empty($confirm_password) || ($role === 'student' && empty($reg_number))) {
         $error = 'Please fill in all fields';
     } elseif ($password !== $confirm_password) {
         $error = 'Passwords do not match';
@@ -26,8 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
                 // Insert new user
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                $stmt = $pdo->prepare("INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)");
-                $stmt->execute([$name, $email, $hashed_password, $role]);
+                $stmt = $pdo->prepare("INSERT INTO users (name, email, password, role, reg_number) VALUES (?, ?, ?, ?, ?)");
+                $stmt->execute([$name, $email, $hashed_password, $role, $reg_number]);
 
                 $_SESSION['user_id'] = $pdo->lastInsertId();
                 $_SESSION['role'] = $role;
@@ -87,6 +88,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input type="email" id="email" name="email" required
                        value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
             </div>
+
+            <?php if ($role !== 'teacher' && $role !== 'admin'): ?>
+            <div class="form-group">
+                <label for="reg_number">Registration Number</label>
+                <input type="text" id="reg_number" name="reg_number" placeholder="e.g. CST/19/COM/00329"
+                       value="<?php echo isset($_POST['reg_number']) ? htmlspecialchars($_POST['reg_number']) : ''; ?>">
+            </div>
+            <?php endif; ?>
 
             <div class="form-group">
                 <label for="password">Password</label>

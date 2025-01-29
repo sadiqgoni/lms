@@ -124,10 +124,10 @@ try {
             </form>
 
             <section class="course-materials">
-                <h2>Course Materials</h2>
+                <h2>Course Materials</h2><br>
                 <div class="add-material">
                     <a href="add-material.php?course_id=<?php echo $courseId; ?>" class="button">Add New Material</a>
-                </div>
+                </div><br>
 
                 <?php if (empty($materials)): ?>
                     <p class="no-materials">No materials added yet.</p>

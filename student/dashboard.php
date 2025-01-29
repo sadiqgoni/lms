@@ -67,6 +67,7 @@ $student = getUserInfo($pdo, $_SESSION['user_id']);
         <div class="welcome-section">
             <h1>Welcome, <?php echo htmlspecialchars($student['name']); ?>!</h1>
             <p>Track your learning progress and explore new courses.</p>
+            <p class="reg-number">Registration Number: <?php echo htmlspecialchars($student['reg_number']); ?></p>
         </div>
 
         <div class="dashboard-stats">

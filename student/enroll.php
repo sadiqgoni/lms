@@ -58,6 +58,7 @@ try {
     <title>Enroll in Course - FOC LMS</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <header>
@@ -77,45 +78,57 @@ try {
             <?php if ($error): ?>
                 <div class="error-message"><?php echo $error; ?></div>
             <?php endif; ?>
-            
+
             <?php if ($success): ?>
                 <div class="success-message">
-                    <?php echo $success; ?>
-                    <p>You will be notified when the teacher approves your enrollment.</p>
+                    <i class="fas fa-check-circle"></i>
+                    <h2><?php echo $success; ?></h2>
+                    <p>You will be notified when the lecturer approves your enrollment.</p>
                     <div class="button-group">
-                        <a href="my-courses.php" class="button">View My Courses</a>
-                        <a href="available-courses.php" class="button button-secondary">Browse More Courses</a>
+                        <a href="my-courses.php" class="button">
+                            <i class="fas fa-book-reader"></i> View My Courses
+                        </a>
+                        <a href="available-courses.php" class="button button-secondary">
+                            <i class="fas fa-search"></i> Browse More Courses
+                        </a>
                     </div>
                 </div>
             <?php else: ?>
-                <div class="enrollment-confirmation">
-                    <h1>Request Enrollment</h1>
+                <div class="enrollment-form">
+                    <div class="form-header">
+                        <h1><i class="fas fa-sign-in-alt"></i> Request Enrollment</h1>
+                    </div>
+
                     <div class="course-summary">
-                        <h2><?php echo htmlspecialchars($course['title']); ?></h2>
-                        <p class="course-teacher">Instructor: <?php echo htmlspecialchars($course['teacher_name']); ?></p>
-                        <p class="course-duration">Duration: <?php echo htmlspecialchars($course['duration']); ?> weeks</p>
+                        <div class="course-title">
+                            <h2><?php echo htmlspecialchars($course['title']); ?></h2>
+                            <p class="course-lecturer">
+                                <i class="fas fa-chalkboard-teacher"></i> 
+                                Lecturer: <?php echo htmlspecialchars($course['teacher_name']); ?>
+                            </p>
+                        </div>
                         
                         <div class="course-description">
-                            <h3>Course Description</h3>
+                            <h3><i class="fas fa-info-circle"></i> Course Description</h3>
                             <p><?php echo nl2br(htmlspecialchars($course['description'])); ?></p>
                         </div>
 
-                        <?php if ($course['prerequisites']): ?>
-                        <div class="prerequisites">
-                            <h3>Prerequisites</h3>
-                            <p><?php echo nl2br(htmlspecialchars($course['prerequisites'])); ?></p>
-                        </div>
-                        <?php endif; ?>
-
                         <div class="enrollment-actions">
                             <form method="POST" action="">
-                                <p class="confirmation-text">
-                                    By requesting enrollment, your request will be sent to the course instructor for approval.
-                                    You will be notified once your enrollment is approved.
-                                </p>
+                                <div class="notice-box">
+                                    <i class="fas fa-info-circle"></i>
+                                    <p>
+                                        By requesting enrollment, your request will be sent to the course lecturer for approval.
+                                        You will be notified once your enrollment is approved.
+                                    </p>
+                                </div>
                                 <div class="button-group">
-                                    <button type="submit" class="button">Request Enrollment</button>
-                                    <a href="course-details.php?id=<?php echo $courseId; ?>" class="button button-secondary">Cancel</a>
+                                    <button type="submit" class="button">
+                                        <i class="fas fa-paper-plane"></i> Request Enrollment
+                                    </button>
+                                    <a href="course-details.php?id=<?php echo $courseId; ?>" class="button button-secondary">
+                                        <i class="fas fa-arrow-left"></i> Back to Course Details
+                                    </a>
                                 </div>
                             </form>
                         </div>
